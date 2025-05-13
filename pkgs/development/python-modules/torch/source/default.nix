@@ -323,15 +323,13 @@ buildPythonPackage rec {
 
       # Replace hard-coded rocm paths
       substituteInPlace caffe2/CMakeLists.txt \
-        --replace-fail "/opt/rocm" "${rocmtoolkit_joined}" \
         --replace-fail "hcc/include" "hip/include" \
         --replace-fail "rocblas/include" "include/rocblas" \
         --replace-fail "hipsparse/include" "include/hipsparse"
 
       # Doesn't pick up the environment variable?
       substituteInPlace third_party/kineto/libkineto/CMakeLists.txt \
-        --replace-fail "\''$ENV{ROCM_SOURCE_DIR}" "${rocmtoolkit_joined}" \
-        --replace-fail "/opt/rocm" "${rocmtoolkit_joined}"
+        --replace-fail "\''$ENV{ROCM_SOURCE_DIR}" "${rocmtoolkit_joined}"
 
       # Strangely, this is never set in cmake
       substituteInPlace cmake/public/LoadHIP.cmake \
