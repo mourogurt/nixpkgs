@@ -184,6 +184,7 @@ let
     paths = with rocmPackages; [
       rocm-core
       clr
+      composable_kernel
       rccl
       miopen
       aotriton
@@ -335,6 +336,11 @@ buildPythonPackage rec {
       substituteInPlace cmake/public/LoadHIP.cmake \
         --replace "set(ROCM_PATH \$ENV{ROCM_PATH})" \
           "set(ROCM_PATH \$ENV{ROCM_PATH})''\nset(ROCM_VERSION ${lib.concatStrings (lib.intersperse "0" (lib.splitVersion rocmPackages.clr.version))})"
+
+      # Use composable kernel as dependency, rather then built-in third-party
+      substituteInPlace aten/src/ATen/CMakeLists.txt \
+        --replace-fail "list(APPEND ATen_HIP_INCLUDE \''${CMAKE_CURRENT_SOURCE_DIR}/../../../third_party/composable_kernel/include)" "" \
+        --replace-fail "list(APPEND ATen_HIP_INCLUDE \''${CMAKE_CURRENT_SOURCE_DIR}/../../../third_party/composable_kernel/library/include)" ""
     ''
     # Detection of NCCL version doesn't work particularly well when using the static binary.
     + lib.optionalString cudaSupport ''
