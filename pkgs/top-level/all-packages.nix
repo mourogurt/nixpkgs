@@ -6943,6 +6943,11 @@ with pkgs;
     stdenv = llvmPackages_21.stdenv;
   };
 
+  qtcreator-with-plugins = qt6Packages.callPackage ../development/tools/qtcreator/with-plugins.nix {
+    llvmPackages = llvmPackages_21;
+    stdenv = llvmPackages_21.stdenv;
+  };
+
   qxmledit = libsForQt5.callPackage ../applications/editors/qxmledit { };
 
   radare2 = callPackage ../development/tools/analysis/radare2 (
