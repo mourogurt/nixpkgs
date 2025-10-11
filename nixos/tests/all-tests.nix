@@ -1270,6 +1270,7 @@ in
   qemu-vm-store = runTest ./qemu-vm-store.nix;
   qemu-vm-volatile-root = runTest ./qemu-vm-volatile-root.nix;
   qgis = handleTest ./qgis.nix { package = pkgs.qgis; };
+  qodeassist-plugin = runTest ./qodeassist-plugin.nix;
   qgis-ltr = handleTest ./qgis.nix { package = pkgs.qgis-ltr; };
   qownnotes = runTest ./qownnotes.nix;
   qtcreator = import ./qtcreator.nix { inherit runTest; };
