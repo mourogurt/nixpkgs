@@ -54,6 +54,8 @@ stdenv.mkDerivation {
   inherit version;
   inherit src;
 
+  separateDebugInfo = true;
+
   nativeBuildInputs = [
     cmake
     pkg-config
